@@ -22,3 +22,7 @@ Route::get('cu/{v1}/{v2}', function ($v1, $v2) {
     $soma = $v1 + $v2;
     return view('cu', compact('soma'));
 });
+
+Route::get('adicionar-produto/{param1}/{param2}', function ($param1, $param2) {
+    return "Produto adicionado com sucesso! Parâmetro 1: {$param1}, Parâmetro 2: {$param2}";
+});
