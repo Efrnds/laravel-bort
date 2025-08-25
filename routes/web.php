@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SeriesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,17 +27,12 @@ Route::get('cu/{v1}/{v2}', function ($v1, $v2) {
     return view('cu', compact('soma'));
 });
 
-Route::get('adicionar-produto/{param1}/{param2}', function ($param1, $param2) {
-    return "Produto adicionado com sucesso! Parâmetro 1: {$param1}, Parâmetro 2: {$param2}";
-});
-
-Route::get('/series', function () {
-    $series = ['Breaking Bad', 'Game of Thrones', 'Stranger Things', 'The Crown'];
-
-    $html = "<ul>";
-    foreach ($series as $serie) {
-        $html .= "<li>{$serie}</li>";
+Route::get('adicionar-produto/{param1}/{param2?}', function ($param1, $param2 = null) {
+    if ($param2 !== null) {
+        return "Produto adicionado com sucesso! Parâmetro 1: {$param1}, Parâmetro 2: {$param2}";
+    } else {
+        return "Produto adicionado com sucesso! Parâmetro 1: {$param1}, Parâmetro 2 não informado.";
     }
-    $html .= "</ul>";
-    return $html;
 });
+
+Route::get('/series', [SeriesController::class, 'listarSeries']);
