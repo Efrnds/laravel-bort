@@ -1,58 +1,30 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!-- Styles / Scripts -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="h-screen w-screen flex">
+    <form id="somaForm" method="get"
+        class="flex flex-col gap-4 w-fit border border-slate-200 shadow-md m-auto h-fit p-4 rounded-md ">
+        <h1 class="text-2xl font-bold mb-4">Somar dois números</h1>
+        <label for="valor1">Insira o valor 1</label>
+        <input id="valor1" name="valor1" type="number"
+            class="outline-slate-500 outline-2 rounded-sm focus:outline-slate-800 transition shadow-md p-1"
+            value="{{ isset($valor1) ? $valor1 : '' }}">
 
-    <title>Laravel</title>
+        <label for="valor2">Insira o valor 2</label>
+        <input id="valor2" name="valor2" type="number"
+            class="outline-slate-500 outline-2 rounded-sm focus:outline-slate-800 transition shadow-md p-1"
+            value="{{ isset($valor2) ? $valor2 : '' }}">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        <button type="submit"
+            class="bg-blue-500 transition cursor-pointer py-1 font-bold rounded-md text-white hover:bg-blue-700 shadow-md">enviar</button>
+    </form>
+</div>
 
-    <!-- Styles / Scripts -->
-    @vite('resources/css/app.css')
-</head>
-
-<body
-    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-    <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
-        @if (Route::has('login'))
-            <nav class="flex items-center justify-end gap-4">
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="bg-red-500">
-                        Dashboard
-                    </a>
-                @else
-                    <a href="{{ route('login') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
-                        Log in
-                    </a>
-
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                            Register
-                        </a>
-                    @endif
-                @endauth
-            </nav>
-        @endif
-    </header>
-    <div
-        class="flex items-center h-screen justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-        <main class="flex max-w-[335px] flex=1 w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-            <div
-                class="text-5xl flex-1 p-6 py-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] mt-auto rounded-full">
-                <h1 class="mb-1 font-medium">vai tomar no cu laravel mema bosta q o react mas mais feio slc.</h1>
-            </div>
-        </main>
-    </div>
-
-    @if (Route::has('login'))
-        <div class="h-14.5 hidden lg:block"></div>
-    @endif
-</body>
-
-</html>
+<script>
+    document.getElementById('somaForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const v1 = document.getElementById('valor1').value;
+        const v2 = document.getElementById('valor2').value;
+        window.location.href = `/soma/${v1}/${v2}`;
+    });
+</script>
